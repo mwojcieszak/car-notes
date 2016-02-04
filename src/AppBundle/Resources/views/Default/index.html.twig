@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="row">
+    <div class="col-md-2 car-list">
+        <div class="widget-header">
+            <div class="widget-content no-padding">
+                <div class="widget box">
+                    <div class="widget-content">
+                        <ul>
+                            {% for make in makes %}
+                                <li>{{ make.makeName }}</li>
+                                <ul>
+                                    {% for model in make.models %}
+                                        <li>
+                                            <a href="#/notes/{{ model.id }}">{{ model.modelName }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10" data-ng-view></div>
+
+{% endblock %}

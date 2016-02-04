@@ -1,0 +1,82 @@
+{% block body %}
+    <div class="row">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="widget-header">
+                <div class="toolbar no-padding">
+                    <div class="btn-group"></div>
+                </div>
+                <div class="widget-content no-padding  note-form" ng-if="form" >
+                    <div>
+                        <div data-ng-show="progress.active()" style="color: red; font-size: 50px;">Zapisywanie ...</div>
+                        <div class="widget box">
+                            <div class="widget-content">
+                                <form name="noteForm" novalidate role="form">
+                                    <div class="form-group">
+                                        <label for="title">Tytuł *</label>
+                                        <span class="label label-danger" data-ng-show="submitted && noteForm.title.$error.required">Pole jest wymagane</span>
+                                        <input type="text" name="title" data-ng-model="note.title" class="form-control" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content">Treść *</label>
+                                        <span class="label label-danger" data-ng-show="submitted && noteForm.content.$error.required">Pole jest wymagane</span>
+                                        <input type="text" name="content" data-ng-model="note.content" class="form-control" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="content">Priorytet *</label>
+                                        <span class="label label-danger" data-ng-show="submitted && noteForm.priority.$error.required">Required!</span>
+
+                                        <label data-ng-repeat="priority in [1,2,3]">
+                                            <input
+                                                    name="priority"
+                                                    type="radio"
+                                                    value="{{'{{ priority }}'}}"
+                                                    ng-model="note.priority"
+                                            required/>
+                                            {{ '{{priority}}' }}
+                                        </label>
+
+                                    </div>
+
+                                    <button data-ng-disabled="progress.active()" data-ng-click="submit(noteForm)" class="btn btn-success">Zapisz</button>
+                                    <button class="btn btn-default"  data-ng-click="close()">Anuluj</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="widget-header">
+                <div class="widget-content no-padding">
+                    <div class="widget box">
+                        <div class="widget-header">
+                            <h4>
+                                Notatki <button data-ng-click="form = true" class="btn btn-default btn-xs" ng-show="!form">+</button>
+                            </h4>
+                        </div>
+                        <span ng-show="notes.$resolved && !notes.length">Brak notatek dla tego modelu</span>
+                        <span ng-hide="notes.$resolved">Loading ...</span>
+
+                        <div class="widget-content" ng-show="notes.$resolved">
+                            <div ng-repeat="note in notes" class="col-md-2 note" ng-mouseover="note.actions = true" ng-mouseleave="note.actions = false">
+                                <span class="col-md-8 title">{{ '{{ note.title }}' }}</span>
+                                <span class="col-md-2 priority">{{ '{{ note.priority }}' }}</span>
+                                <span class="col-md-12 content">{{ '{{ note.content }}' }}</span>
+
+
+
+                                <div class="note-actions" ng-show="note.actions">
+                                    <button class="btn btn-default btn-xs" ng-click="edit(note)"><i class="fa fa-pencil-square-o"></i></button>
+                                    <button class="btn btn-danger btn-xs" ng-click="remove(note.id)"><i class="fa fa-trash-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

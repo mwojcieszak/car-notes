@@ -1,0 +1,28 @@
+.note-form {
+    background-color: #eff0f2;
+    padding: 15px;
+}
+
+.note {
+    background-color: #FCDE54;
+    margin:5px;
+    min-height: 120px;
+}
+
+.note .title {
+    font-weight: bold;
+}
+
+.note .priority {
+    float: right;
+    color: orangered;
+    font-weight: bold;
+}
+
+.note .content {
+    border-top: 1px solid silver;
+}
+/*.car-list {*/
+    /*height: 1000px;*/
+    /*overflow: auto;*/
+/*}*/
